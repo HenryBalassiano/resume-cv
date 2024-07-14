@@ -1,0 +1,12 @@
+.personal-info {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  align-items: center;
+  margin-top: 1rem;
+  border-radius: 15px;
+}
+input {
+  display: flex;
+  flex-direction: column;
+}
