@@ -17,21 +17,21 @@ function App() {
   // data from edit-side needs to be passed into the resume
   return (
     <>
-      <div>
-        <div id="main-app">
-          <div id="user-container">
-            <PersonalInfo />
-            <Education />
-            <Expierence
-              formData={formData}
-              setExpierence={setExpierence}
-              expierence={experience}
-              setFormData={setFormData}
-            />
-          </div>
-          <div id="resume-container">
-            <Resume experience={experience} />
-          </div>
+      <div id="main-app">
+        <div id="user-container">
+          <PersonalInfo />
+          <Education />
+          <Expierence
+            formData={formData}
+            setExpierence={setExpierence}
+            expierence={experience}
+            setFormData={setFormData}
+          />
+        </div>{" "}
+      </div>
+      <div id="edit-side">
+        <div id="resume-container">
+          <Resume experience={experience} />
         </div>
       </div>
     </>
