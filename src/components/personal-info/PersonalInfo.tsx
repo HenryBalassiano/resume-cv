@@ -1,18 +1,7 @@
 import {useState} from "react";
 import "../../styles/PersonalInfo.css";
 
-function PersonalInfo() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    number: "",
-    address: "",
-  });
-
-  const handleChange = (e: any) => {
-    setFormData(e.target.value);
-  };
-
+function PersonalInfo({formData, setFormData, handleChange}: any) {
   return (
     <div className="personal-info">
       <div>

@@ -1,13 +1,18 @@
-import {useState} from "react";
 import "../../styles/Resume.css";
 
-function Resume({experience}: any) {
+function Resume({formData}: any) {
   return (
     <div className="resume">
-      {experience.map((index: any, v: number) => (
+      {formData.experience.map((index: any, v: number) => (
         <div key={v}>
           {index.company}
           {index.position}
+        </div>
+      ))}
+      {formData.education.map((index: any, v: number) => (
+        <div key={v}>
+          {index.school}
+          {index.degree}
         </div>
       ))}
     </div>

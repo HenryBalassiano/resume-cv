@@ -19,6 +19,7 @@ body {
   justify-content: center;
 }
 #edit-side {
+  padding-top: 2rem;
   width: 496px;
   height: 394.667px;
   aspect-ratio: auto 3 / 4;

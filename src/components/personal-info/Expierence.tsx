@@ -1,43 +1,34 @@
 import {useState, ChangeEvent} from "react";
 import "../../styles/Expierence.css";
-
-function Expierence({setExpierence, expierence, formData, setFormData}: any) {
+function Experience({formData, setFormData, handleChange}: any) {
   const [onSubmit, setOnSubmit] = useState<boolean>(false);
-  const [onDropDown, setonDropDown] = useState<boolean>(false);
+  const [onDropDown, setOnDropDown] = useState<boolean>(false);
   const [formView, setFormView] = useState<boolean>(false);
-
   const [currentEditIndex, setCurrentEditIndex] = useState<number | null>(null);
-
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    index: number
-  ): void => {
-    setExpierence((prev: any[]) =>
-      prev.map((o: any, i: number) =>
-        i === index ? {...o, [e.target.name]: e.target.value} : o
-      )
-    );
-  };
-  console.log(expierence, "hi im value");
 
   const handleCancel = () => {
     setOnSubmit(false);
-    setExpierence(formData);
     setFormView(!formView);
   };
 
   const handleSave = () => {
-    setFormData(expierence);
     setOnSubmit(false);
     setCurrentEditIndex(null);
     setFormView(!formView);
   };
-
+  console.log(formData.sections.experience, "hi there");
   const addTask = () => {
     const newField = {company: "", position: ""};
-    setExpierence([...expierence, newField]);
+    const updatedExperience = [...formData.sections.experience, newField];
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      sections: {
+        ...prevFormData.sections,
+        experience: updatedExperience,
+      },
+    }));
     setOnSubmit(true);
-    setCurrentEditIndex(expierence.length);
+    setCurrentEditIndex(updatedExperience.length - 1);
   };
 
   return (
@@ -46,14 +37,14 @@ function Expierence({setExpierence, expierence, formData, setFormData}: any) {
         onClick={(e) => {
           e.preventDefault();
           setOnSubmit(!onSubmit);
-          setonDropDown(!onDropDown);
+          setOnDropDown(!onDropDown);
         }}
       >
         <h2>Experience</h2>
       </button>
       {onDropDown ? (
         <div>
-          {expierence.map((form: any, index: number) => (
+          {formData.sections.experience.map((form: any, index: number) => (
             <div key={index}>
               {!formView ? (
                 <button
@@ -70,7 +61,7 @@ function Expierence({setExpierence, expierence, formData, setFormData}: any) {
                 ""
               )}
               {onSubmit && currentEditIndex === index && (
-                <div id="expierence-form">
+                <div id="experience-form">
                   <form>
                     <div>
                       <label>Company</label>
@@ -78,7 +69,7 @@ function Expierence({setExpierence, expierence, formData, setFormData}: any) {
                         type="text"
                         name="company"
                         id="company"
-                        onChange={(e) => handleChange(e, index)}
+                        onChange={(e) => handleChange(e, "experience", index)}
                         value={form.company}
                       />
                       <label>Position</label>
@@ -86,7 +77,7 @@ function Expierence({setExpierence, expierence, formData, setFormData}: any) {
                         type="text"
                         name="position"
                         id="position"
-                        onChange={(e) => handleChange(e, index)}
+                        onChange={(e) => handleChange(e, "experience", index)}
                         value={form.position}
                       />
                     </div>
@@ -122,4 +113,4 @@ function Expierence({setExpierence, expierence, formData, setFormData}: any) {
   );
 }
 
-export default Expierence;
+export default Experience;

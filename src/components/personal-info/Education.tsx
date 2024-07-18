@@ -1,60 +1,116 @@
-import {useState} from "react";
-import "../../styles/Education.css";
+import {useState, ChangeEvent} from "react";
+import "../../styles/Expierence.css";
+function Experience({formData, setFormData, handleChange}: any) {
+  const [onSubmit, setOnSubmit] = useState<boolean>(false);
+  const [onDropDown, setOnDropDown] = useState<boolean>(false);
+  const [formView, setFormView] = useState<boolean>(false);
+  const [currentEditIndex, setCurrentEditIndex] = useState<number | null>(null);
 
-function Education() {
-  const [onSubmit, setOnSubmit] = useState(false);
-  const [onDropDown, setDrepDown] = useState(false);
+  const handleCancel = () => {
+    setOnSubmit(false);
+    setFormView(!formView);
+  };
+
+  const handleSave = () => {
+    setOnSubmit(false);
+    setCurrentEditIndex(null);
+    setFormView(!formView);
+  };
+  console.log(formData.sections.education, "hi education");
+  const addTask = () => {
+    const newField = {company: "", position: ""};
+    const updatedExperience = [...formData.sections.education, newField];
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      sections: {
+        ...prevFormData.sections,
+        experience: updatedExperience,
+      },
+    }));
+    setOnSubmit(true);
+    setCurrentEditIndex(updatedExperience.length - 1);
+  };
 
   return (
-    <div className="education">
+    <div className="expierence">
       <button
         onClick={(e) => {
-          setDrepDown(!onDropDown);
           e.preventDefault();
+          setOnSubmit(!onSubmit);
+          setOnDropDown(!onDropDown);
         }}
       >
-        <h2>Education</h2>{" "}
+        <h2>Experience</h2>
       </button>
-
-      {!onDropDown ? (
-        ""
-      ) : (
+      {onDropDown ? (
         <div>
-          {onSubmit ? (
-            <div>
-              <form id="education-form">
-                <div>
-                  <label></label>
-                  <input></input>
-                  <label></label>
-                  <input></input>
-                </div>
+          {formData.sections.education.map((form: any, index: number) => (
+            <div key={index}>
+              {!formView ? (
                 <button
                   onClick={(e) => {
-                    setOnSubmit(!onSubmit);
                     e.preventDefault();
+                    setOnSubmit(true);
+                    setCurrentEditIndex(index);
+                    setFormView(!formView);
                   }}
                 >
-                  <p>Cancel</p>
+                  {form.school}
                 </button>
-              </form>
+              ) : (
+                ""
+              )}
+              {onSubmit && currentEditIndex === index && (
+                <div id="experience-form">
+                  <form>
+                    <div>
+                      <label>Company</label>
+                      <input
+                        type="text"
+                        name="company"
+                        id="company"
+                        onChange={(e) => handleChange(e, "education", index)}
+                        value={form.school}
+                      />
+                      <label>Position</label>
+                      <input
+                        type="text"
+                        name="position"
+                        id="position"
+                        onChange={(e) => handleChange(e, "education", index)}
+                        value={form.degree}
+                      />
+                    </div>
+                    <button type="button" onClick={handleCancel}>
+                      Cancel
+                    </button>
+                    <button type="button" onClick={handleSave}>
+                      Save
+                    </button>
+                  </form>
+                </div>
+              )}
             </div>
+          ))}
+          {!formView ? (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                addTask();
+                setFormView(!formView);
+              }}
+            >
+              Add Task
+            </button>
           ) : (
-            <form>
-              <button
-                onClick={(e) => {
-                  setOnSubmit(!onSubmit);
-                  e.preventDefault();
-                }}
-              >
-                <p>New York universey</p>{" "}
-              </button>
-            </form>
+            ""
           )}
         </div>
+      ) : (
+        ""
       )}
     </div>
   );
 }
 
-export default Education;
+export default Experience;
