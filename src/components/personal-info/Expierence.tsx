@@ -1,6 +1,12 @@
 import {useState, ChangeEvent} from "react";
 import "../../styles/Expierence.css";
-function Experience({formData, setFormData, handleChange}: any) {
+function Experience({
+  formData,
+  setFormData,
+  handleChange,
+  setPrevForm,
+  prevForm,
+}: any) {
   const [onSubmit, setOnSubmit] = useState<boolean>(false);
   const [onDropDown, setOnDropDown] = useState<boolean>(false);
   const [formView, setFormView] = useState<boolean>(false);
@@ -9,11 +15,13 @@ function Experience({formData, setFormData, handleChange}: any) {
   const handleCancel = () => {
     setOnSubmit(false);
     setFormView(!formView);
+    setFormData(prevForm);
   };
 
   const handleSave = () => {
     setOnSubmit(false);
     setCurrentEditIndex(null);
+    setPrevForm(formData);
     setFormView(!formView);
   };
   console.log(formData.sections.experience, "hi there");

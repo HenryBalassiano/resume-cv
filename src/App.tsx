@@ -6,6 +6,7 @@ import Expierence from "./components/personal-info/Expierence.tsx";
 import FormData from "./FormData.tsx";
 function App() {
   const [formData, setFormData] = useState(FormData);
+  const [prevForm, setPrevForm] = useState(FormData);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement>,
@@ -40,6 +41,8 @@ function App() {
             formData={formData}
             setFormData={setFormData}
             handleChange={handleChange}
+            setPrevForm={setPrevForm}
+            prevForm={prevForm}
           />
         </div>
       </div>

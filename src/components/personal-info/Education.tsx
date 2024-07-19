@@ -18,7 +18,7 @@ function Experience({formData, setFormData, handleChange}: any) {
   };
   console.log(formData.sections.education, "hi education");
   const addTask = () => {
-    const newField = {company: "", position: ""};
+    const newField = {school: "", degree: ""};
     const updatedExperience = [...formData.sections.education, newField];
     setFormData((prevFormData: any) => ({
       ...prevFormData,
